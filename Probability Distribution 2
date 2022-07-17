@@ -1,0 +1,68 @@
+# Start writing code here...
+
+import scipy.stats as stats
+import numpy as np
+
+### Task Group 1 ###
+## Task 1: 
+# Create a variable called lam that represents the rate parameter of our distribution.
+lam = 7
+
+## Task 2: 
+#Calculate and print the probability of observing exactly lam defects on a given day.
+exactly_lam = stats.poisson.pmf(lam, 7)
+print(exactly_lam)
+
+## Task 3:
+# Calculate and print the probability of having one of these days.
+good_day = stats.poisson.cdf(4, lam)
+print(good_day)
+
+## Task 4:
+# Calculate and print the probability of having one of these bad days.
+bad_day = 1 - stats.poisson.cdf(9, lam)
+print(bad_day)
+
+### Task Group 2 ###
+## Task 5:
+# Create a variable called year_defects that has 365 random values from the Poisson distribution.
+year_defects = stats.poisson.rvs(lam, size = 365)
+
+## Task 6:
+# Let’s take a look at our new dataset. Print the first 20 values in this data set.
+print(year_defects[0:20])
+
+## Task 7:
+# If we expect 7 defects on a given day, what is the total number of defects we would expect over 365 days?
+yearly_expected_defects = lam * 365
+print(yearly_expected_defects)
+
+## Task 8:
+# Calculate and print the total sum of the data set year_defects. How does this compare to the total number of defects we expected over 365 days?
+print(sum(year_defects))
+
+## Task 9:
+# Calculate and print the average number of defects per day from our simulated dataset.
+print(np.mean(year_defects))
+
+## Task 10:
+# Print the maximum value of year_defects.
+print(max(year_defects))
+print(year_defects.max())
+max_day_defects = max(year_defects)
+
+## Task 11:
+# Calculate and print the probability of observing that maximum value or more from the Poisson(7) distribution.
+max_probability = 1 - stats.poisson.cdf(max_day_defects, lam)
+print(max_probability)
+
+### Extra Bonus ###
+# Task 12
+# Use this method to calculate and print the number of defects that would put us in the 90th percentile for a given day. In other words, on 90% of days, we will observe fewer defects than this number.
+ninetieth_percentile = stats.poisson.ppf(0.90, lam)
+print(ninetieth_percentile)
+
+# Task 13
+# Now let’s see what proportion of our simulated dataset year_defects is greater than or equal to the number we calculated in the previous step.
+year_defects_percentile = sum(year_defects >= ninetieth_percentile) / len(year_defects)
+print(year_defects_percentile)
