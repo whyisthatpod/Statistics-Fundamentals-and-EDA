@@ -1,0 +1,34 @@
+# Start writing code here...
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt 
+import seaborn as sns
+# import codecademylib3
+from scipy.stats import pearsonr
+np.set_printoptions(suppress=True, precision = 1) 
+
+penguins = pd.read_csv('penguins.csv')
+
+# Inspect the first few rows of data.
+print(penguins.head())
+
+# Create a scatter plot of flipper length (flipper_length_mm) and body mass (body_mass_g).
+plt.scatter(penguins.flipper_length_mm, penguins.body_mass_g)
+plt.xlabel('Flipper Length (mm)')
+plt.ylabel('Body Mass (g)')
+plt.show()
+
+# Inspect your plot. What is the relationship between these variables?
+# appears to be a positive linear relationship, likely a strong one
+
+#Calculate the covariance for these two variables.
+print(np.cov(penguins.flipper_length_mm, penguins.body_mass_g))
+
+#Calculate the correlation for these two variables. Does this number make sense given the plot you created?
+
+correlation, p = pearsonr(penguins.flipper_length_mm, penguins.body_mass_g)
+
+print(correlation)
+
+#yes, a correlation of .87 makes sense given scatter plot
