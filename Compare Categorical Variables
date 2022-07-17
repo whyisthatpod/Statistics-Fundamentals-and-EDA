@@ -1,0 +1,30 @@
+# Start writing code here...
+
+import pandas as pd
+import numpy as np
+from scipy.stats import chi2_contingency
+
+npi = pd.read_csv("npi_sample.csv")
+
+print(npi.head())
+
+# Contingency tables of frequencies
+leader_blend_freq = pd.crosstab(npi.leader, npi.blend_in)
+print(leader_blend_freq)
+
+# Contingency tables of proportions
+leader_blend_prop = leader_blend_freq / len(npi)
+print(leader_blend_prop)
+
+# Marginal proportions
+blend_marginals = leader_blend_prop.sum(axis=0)
+print(blend_marginals)
+leader_marginals = leader_blend_prop.sum(axis=1)
+print(leader_marginals)
+
+# Expected contingency tables
+chi2, pval, dof, expected = chi2_contingency(leader_blend_freq)
+print(np.round(expected))
+
+# The Chi-Square statistic
+print(np.round(chi2))
